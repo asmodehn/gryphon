@@ -109,12 +109,20 @@ class ExchangeAPIWrapper(ConfigurableObject):
     def place_order_resp(self, req):
         raise NotImplementedError
 
-    def market_order(self, mode, volume):
+    def market_order(self, mode, volume, price=None):
         """
         Place a market order on the exchange.
         """
-        return self.place_order(mode, volume, order_type=order_types.MARKET_ORDER)
-    
+        if price is None:
+            price = quote_lib.price_quote_from_orderbook(
+                self.get_orderbook(),
+                mode,
+                volume,
+            ).get('price_for_order')
+
+        order = self.place_order(mode, volume, price, order_type=order_types.MARKET_ORDER)
+        return order.update({'price': price})  # Here or when order filled ?
+
     def market_order_req(self, mode, volume):
         raise NotImplementedError
 
@@ -131,6 +139,19 @@ class ExchangeAPIWrapper(ConfigurableObject):
         raise NotImplementedError
 
     def limit_order_resp(self, req):
+        raise NotImplementedError
+
+
+    def stop_order(self, mode, volume, price):
+        """
+        Place a limit order on the exchange.
+        """
+        #return self.place_order(mode, volume, price)
+
+    def stop_order_req(self, mode, volume, price):
+        raise NotImplementedError
+
+    def stop_order_resp(self, req):
         raise NotImplementedError
 
     def get_open_orders(self):

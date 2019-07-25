@@ -48,10 +48,15 @@ class SimpleMarketMaking(Strategy):
             self.base_volume,
             self.position,
         )
+        print("balance: " + str(self.primary_exchange.get_balance()))
+        print("bid volume: " + str(bid_volume) + " price: " + str(bid_price))
+        print("ask volume: " + str(ask_volume) + " price: " + str(ask_price))
 
-        if bid_volume > 0:
+        # Place order only if we can...
+        if self.primary_exchange.get_balance().get(bid_price.currency).amount > bid_price.amount * bid_volume.amount:
             self.primary_exchange.limit_order(Consts.BID, bid_volume, bid_price)
 
-        if ask_volume > 0:
+        # Place order only if we can...
+        if self.primary_exchange.get_balance().get(ask_volume.currency).amount > ask_volume.amount:
             self.primary_exchange.limit_order(Consts.ASK, ask_volume, ask_price)
 

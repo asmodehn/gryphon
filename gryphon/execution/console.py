@@ -51,6 +51,8 @@ environment.load_environment_variables()
 # Create oft-used database objects.
 trading_db = session.get_a_trading_db_mysql_session()
 
+print("TRADING DB : " + str(trading_db))
+
 try:
     gds_db = session.get_a_gds_db_mysql_session()
 except Exception as e:

@@ -12,6 +12,7 @@ from gryphon.lib.logger import get_logger
 from gryphon.lib.models.datum import DatumRecorder
 from gryphon.lib.models.flag import Flag
 from gryphon.lib.models.order import Order
+from gryphon.lib.models.trade import Trade
 from gryphon.lib.money import Money
 from gryphon.lib.session import commit_mysql_session
 

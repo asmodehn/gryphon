@@ -242,7 +242,7 @@ class ExchangeCoordinator(object):
             extra_data,
         )
 
-    def market_order(self, mode, volume, price, extra_data=[]):
+    def market_order(self, mode, volume, price=None, extra_data=[]):
         return self.place_order(
             mode,
             volume,

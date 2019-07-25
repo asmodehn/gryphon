@@ -97,7 +97,7 @@ setuptools.setup(
         'scandir==1.7',
         'simplegeneric==0.8.1',
         'six==1.12.0',
-        'sure==1.2.9',
+        'sure==1.4.11',
         'SQLAlchemy>=1.2.10,<1.3',
         'termcolor==1.1.0',
         'traitlets==4.3.2',

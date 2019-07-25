@@ -216,7 +216,7 @@ class BitstampBTCUSDExchange(ExchangeAPIWrapper):
     def get_balance_resp(self, req):
         response = self.resp(req)
         balance = Balance()
-
+        print(response)
         try:
             vol_currency_key = '%s_available' % self.volume_currency.lower()
             price_currency_key = '%s_available' % self.currency.lower()
@@ -288,7 +288,7 @@ class BitstampBTCUSDExchange(ExchangeAPIWrapper):
 
     def place_order_resp(self, req):
         response = self.resp(req)
-
+        print(response)
         try:
             return {'success': True, 'order_id': text_type(response['id'])}
         except KeyError:

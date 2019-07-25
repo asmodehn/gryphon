@@ -2,7 +2,6 @@
 
 from gryphon.lib.exchange import exceptions
 
-
 ALL_EXCHANGE_KEYS = [
     'bitstamp_btc_eur',
     'bitstamp_btc_usd',
@@ -16,6 +15,7 @@ ALL_EXCHANGE_KEYS = [
     'kraken_btc_eur',
     'kraken_btc_usd',
     'kraken_btc_cad',
+    'kraken_eth_eur',
     'itbit_btc_usd',
     'okcoin_btc_usd',
     'coinbase_btc_usd',
@@ -142,7 +142,7 @@ def make_exchange_datas_from_keys(pair_names, db):
         .filter(ExchangeData.name.in_(exchange_names))\
         .all()
 
-    assert len(exchange_datas) == len(pair_names)
+    assert len(exchange_datas) == len(pair_names), str(exchange_datas) + " " + str(pair_names)
 
     return [exchange_datas[0]]
 
@@ -186,6 +186,9 @@ def get_api_wrapper_class_by_name(exchange_name):
     elif exchange_name == 'KRAKEN_BTC_CAD':
         from gryphon.lib.exchange.kraken_btc_cad import KrakenBTCCADExchange
         return KrakenBTCCADExchange
+    elif exchange_name == 'KRAKEN_ETH_EUR':
+        from gryphon.lib.exchange.kraken_eth_eur import KrakenETHEURExchange
+        return KrakenETHEURExchange
     elif exchange_name == 'BITFINEX_BTC_USD':
         from gryphon.lib.exchange.bitfinex_btc_usd import BitfinexBTCUSDExchange
         return BitfinexBTCUSDExchange

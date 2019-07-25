@@ -168,7 +168,7 @@ class GryphonStatusHandler(AdminBaseHandler):
         return up_exchanges
 
     def get_trading_bank_accounts(self):
-        trading_bank_acount_keys = ['BMO_USD', 'BMO_CAD']
+        trading_bank_acount_keys = [] #['BMO_USD', 'BMO_CAD']
 
         bank_account_infos = []
 

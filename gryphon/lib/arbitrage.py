@@ -74,6 +74,9 @@ class Cross(object):
         """
         return bool(self.volume)
 
+    def __str__(self):
+        return "Cross " + str(self.volume_currency) + "/" + str(self.price_currency) + " v:" + str(self.volume) + " r:" + str(self.revenue) + " f:" + str(self.fees)
+
 
 def detect_cross(ob1, ob2, ignore_unprofitable=True):
     """
@@ -225,10 +228,15 @@ def detect_crosses_between_many_orderbooks(orderbooks, ignore_unprofitable=True)
     crosses = []
 
     for pair in itertools.combinations(orderbooks, 2):
-        cross = detect_cross(pair[0], pair[1], ignore_unprofitable)
+        try:
+            cross = detect_cross(pair[0], pair[1], ignore_unprofitable)
 
-        if cross is not None:
-            crosses.append(cross)
+            if cross is not None:
+                crosses.append(cross)
+
+        except MismatchedVolumeCurrenciesError as mvce:
+            print(mvce.message)
+            # just skip this combination
 
     crosses = sorted(crosses, key=lambda c: c.profit, reverse=True)
 
